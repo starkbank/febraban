@@ -1,3 +1,4 @@
+from datetime import datetime
 from ....row import Row
 from ....characterType import numeric, alphaNumeric
 
@@ -15,10 +16,13 @@ class Header:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setGeneratedFileDate(self, datetime):
+    def setGeneratedFileDate(self, dateAndTime):
+        if dateAndTime is None:
+            dateAndTime = datetime.now()
+
         structs = [
-            (143, 151, 8, numeric, datetime.strftime("%d%m%Y")),   # Dia que o arquivo foi gerado
-            (151, 157, 6, numeric, datetime.strftime("%H%M%S")),   # Horario que o arquivo foi gerado
+            (143, 151, 8, numeric, dateAndTime.strftime("%d%m%Y")),   # Dia que o arquivo foi gerado
+            (151, 157, 6, numeric, dateAndTime.strftime("%H%M%S")),   # Horario que o arquivo foi gerado
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

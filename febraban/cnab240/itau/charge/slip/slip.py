@@ -41,7 +41,10 @@ class Slip:
         self.segmentP.setExpirationDate(datetime.strftime("%d%m%Y"))
 
     def setIssueDate(self, datetime):
-        self.segmentP.setIssueDate(datetime.strftime("%d%m%Y"))
+        date = "00000000"
+        if datetime is not None:
+            date = datetime.strftime("%d%m%Y")
+        self.segmentP.setIssueDate(date)
 
     def setBankIdentifier(self, identifier, branch, accountNumber, wallet):
         dac = DAC.calculate(
@@ -66,3 +69,15 @@ class Slip:
         self.segmentP.setCancel()
         self.segmentQ.setCancel()
         self.segmentR.setCancel()
+
+    def chargeUpate(self, amount=None, dueDate=None):
+        if amount:
+            self.segmentP.setOccurrence(occurence="31")
+            self.segmentP.setNullValues()
+            self.segmentP.setAmountInCents(amount=amount)
+            self.segmentQ.setNullValues()
+        if dueDate:
+            self.segmentP.setNullValues()
+            self.segmentP.setOccurrence(occurence="06")
+            self.segmentP.chargeUpdateDueDate(dueDate.strftime("%d%m%Y"))
+            self.segmentQ.setNullValues()

@@ -1,3 +1,4 @@
+from datetime import datetime
 from ....row import Row
 from ....characterType import numeric, alphaNumeric
 
@@ -18,10 +19,13 @@ class HeaderLot:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setGeneratedFileDate(self, datetime):
+    def setGeneratedFileDate(self, dateAndTime):
+        if dateAndTime is None:
+            dateAndTime = datetime.now()
+
         structs = [
-            (191, 199, 8, numeric, datetime.strftime("%d%m%Y")),   # Data de gravacao
-            (199, 207, 8, numeric, datetime.strftime("%d%m%Y")),   # Data de credito
+            (191, 199, 8, numeric, dateAndTime.strftime("%d%m%Y")),   # Data de gravacao
+            (199, 207, 8, numeric, dateAndTime.strftime("%d%m%Y")),   # Data de credito
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

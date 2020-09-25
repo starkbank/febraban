@@ -7,6 +7,7 @@ class SlipResponseStatus:
     registered = "registered"
     paid = "paid"
     canceled = "canceled"
+    updated = "updated"
     overdue = "overdue"
     failed = "failed"
     unknown = "unknown"
@@ -35,6 +36,8 @@ class SlipResponse:
             return SlipResponseStatus.paid
         if self.occurrence == "09":
             return SlipResponseStatus.canceled
+        if self.occurrence in ["04", "14"]:
+            return SlipResponseStatus.updated
         return SlipResponseStatus.unknown
 
     def contentText(self, breakLine="\n"):

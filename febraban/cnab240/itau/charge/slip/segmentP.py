@@ -90,3 +90,27 @@ class SegmentP:
             (224, 226, 2, numeric, overdueLimit),  # Quantidade de dias após o vencimento para baixa automática
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setNullValues(self):
+        structs = [
+            (109, 117, 8, numeric, "0"),                # Data de emissao do boleto nula
+            (77, 85, 8, numeric, "0"),                  # Data de vencimento do boleto nula
+            (223, 224, 1, numeric, "0"),
+            (224, 226, 2, numeric, "0"),                # Quantidade de dias após o vencimento nulo
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setOccurrence(self, occurence):
+        structs = [
+            (15, 17, 2, numeric, occurence)
+
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def chargeUpdateDueDate(self, dueDate):
+        self.setNullValues()
+        structs = [
+            (15, 17, 2, numeric, "06"),                 # Indica alteracao
+            (77, 85, 8, numeric, dueDate),              # Alteracao vencimento
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)

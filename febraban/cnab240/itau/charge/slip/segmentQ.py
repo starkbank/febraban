@@ -55,8 +55,28 @@ class SegmentQ:
 
     def setGuarantor(self, user):
         structs = [
-            (153, 154,  1,      numeric, "1" if len(user.identifier) == 11 else "2"), # 1 - CPF/ 2 - CNPJ
-            (154, 169, 15,      numeric, user.identifier),                            # CPF/CNPJ do Sacador Avalista
-            (169, 199, 30, alphaNumeric, user.name)                                   # Nome do Sacador Avalista
+            (153, 154,  1,      numeric, "1" if len(user.identifier) == 11 else "2"),   # 1 - CPF/ 2 - CNPJ
+            (154, 169, 15,      numeric, user.identifier),                              # CPF/CNPJ do Sacador Avalista
+            (169, 199, 30, alphaNumeric, user.name)                                     # Nome do Sacador Avalista
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setNullValues(self):
+        structs = [
+            (17, 18, 1, numeric, "0"),          # 1 - CPF/ 2 - CNPJ nulo
+            (18, 33, 15, numeric, "0"),         # CPF/CNPJ do Pagador nulo
+            (33, 63, 30, alphaNumeric, " "),    # Nome do Pagador nulo
+            (73, 113, 40, alphaNumeric, " "),   # Endereco pagador nulo
+            (113, 128, 15, alphaNumeric, " "),
+            (128, 136, 8, numeric, "0"),
+            (136, 151, 15, alphaNumeric, " "),
+            (151, 153, 2, alphaNumeric, " ")
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setOccurrence(self, occurence):
+        structs = [
+            (15, 17, 2, numeric, occurence)
+
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

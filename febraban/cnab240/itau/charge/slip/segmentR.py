@@ -44,3 +44,9 @@ class SegmentR:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setOccurrence(self, ocurrence):
+        structs = [
+            (15, 17, 2, numeric, ocurrence),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
